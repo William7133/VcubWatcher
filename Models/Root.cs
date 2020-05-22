@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BikeWatcher.Models
+namespace VclubWatcher.Models
 {
   public class Root
   {

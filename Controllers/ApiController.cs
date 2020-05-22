@@ -6,41 +6,36 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
-using BikeWatcher.Models;
+using VclubWatcher.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net;
+using System.IO;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace BikeWatcher.Controllers
+namespace VclubWatcher.Controllers
 {
-  public class ApiController : Controller
+  public partial class Api
   {
-    // GET: /<controller>/
-    public IActionResult Index()
+    public void Page_Load(object sender, EventArgs e)
     {
-      return View();
+      string strurltest = string.Format("https://api.alexandredubois.com/vcub-backend/vcub.php");
+      WebRequest resquestObject = WebRequest.Create(strurltest);
+      requestObjGet.Method = "GET";
+      HttpWebResponse responseObjGet = null;
+      responseObjGet = (HttpWebResponse)requestObjGet.GetResponse();
+
+      string strresulttest = null;
+      using (Stream stream = responseObjGet.GetResponseStream())
+      {
+        StreamReader sr = new StreamReader(stream);
+        strresulttest = sr.ReadToEnd();
+        sr.Close();
+      }
     }
-
-    private static readonly HttpClient client = new HttpClient();
-
-    static async Task Main(string[] args)
-    {
-      await ProcessRepositories();
-    }
-    public static async Task<List<BikeStation>> ProcessRepositories()
-    {
-      client.DefaultRequestHeaders.Accept.Clear();
-      client.DefaultRequestHeaders.Accept.Add(
-          new MediaTypeWithQualityHeaderValue("application/vnd.github.v3+json"));
-      client.DefaultRequestHeaders.Add("User-Agent", ".NET Foundation Repository Reporter");
-
-      var streamTask = client.GetStreamAsync("https://api.github.com/orgs/dotnet/repos");
-      var DataBrute = await JsonSerializer.DeserializeAsync<Root>(await streamTask);
-      var Data = DataBrute.values;
-      return Data;
-    }
-
-
-
   }
 
 }
+
+

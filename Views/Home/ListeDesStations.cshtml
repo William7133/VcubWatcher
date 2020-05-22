@@ -2,17 +2,15 @@
   var stations = ViewBag.allStations;
 }
 
-<button> <a href="/API?v=Bordeaux">Vélov de Bordeaux</a></button>
-<button> <a href="/API?v=Lyon">Vélov de Lyon</a> </button>
-@foreach (var BikeStation in stations)
+<button> <a href="/API?v=Vclub">Vélov</a></button>
+@foreach (var station in stations)
 {
   <div class="text-center">
     <p>
 
       <ul class="list-group">
-        <li class="list-group-item">@BikeStation.name</li>
+        <li class="list-group-item">@station.name</li>
       </ul>
     </p>
   </div>
 }
-© 2020 GitHub, Inc.
