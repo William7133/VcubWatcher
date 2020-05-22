@@ -16,25 +16,7 @@ using System.IO;
 
 namespace VclubWatcher.Controllers
 {
-  public partial class Api
-  {
-    public void Page_Load(object sender, EventArgs e)
-    {
-      string strurltest = string.Format("https://api.alexandredubois.com/vcub-backend/vcub.php");
-      WebRequest resquestObject = WebRequest.Create(strurltest);
-      requestObjGet.Method = "GET";
-      HttpWebResponse responseObjGet = null;
-      responseObjGet = (HttpWebResponse)requestObjGet.GetResponse();
 
-      string strresulttest = null;
-      using (Stream stream = responseObjGet.GetResponseStream())
-      {
-        StreamReader sr = new StreamReader(stream);
-        strresulttest = sr.ReadToEnd();
-        sr.Close();
-      }
-    }
-  }
 
 }
 

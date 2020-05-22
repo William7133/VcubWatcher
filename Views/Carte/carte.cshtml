@@ -1,0 +1,93 @@
+@{
+  ViewData["Title"] = "Carte";
+  var data = ViewBag.AllBikeStations;
+}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width" , initial-scale="1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Map</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+  <style>
+
+    #maCarte {
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="maCarte"></div>
+
+
+
+  <!-- Make sure you put this AFTER Leaflet's CSS -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+          integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+          crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+      <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+      <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/markercluster.js" />
+  </script>
+
+  <script>
+
+    var villes = {
+
+    "Paris":{"lat": 48.852969, "lon": 2.349983},
+    "Brest": {"lat": 4.852969, "lon": 24.349983 },
+    "Nice": { "lat": 5.852969, "lon": 7.349983},
+      "Lyon": { "lat": 45.852969, "lon": 20.349983 }
+
+    };
+
+    var tableauMarqeurs = [];
+    // On initialise la carte
+    var carte = L.map('maCarte').setView([51.505, -0.09], 13);
+
+    // On change les "tuiles"
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      // laisser un lien vers la source des données
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      minZoom: 1,
+      maxZoom: 20,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'your.mapbox.access.token'
+    }).addTo(Carte);
+
+      var marqueurs = L.markerClusterGroup();
+
+    // on personnalise le marqueur
+      var icone = L.icon({
+        iconurl: "images/icone.png",
+        iconeSize: [50, 50],
+        iconAnchor: [50, 25],
+        popupAnchor: [0,-50]
+      })
+
+    for (ville in villes) {
+      // on crée le marqueur et on lui attribue une popup var marqueur = L.marker([ville[ville].lat.villes[ville].lon], {icon:icone}).addTo(carte);
+      marqueur.bindPopup("<p>" + Ville + "</p>");
+      marqueurs.addLayer(marqueur);
+
+      tableauMarqueurs.push(marqueur);
+
+    }
+
+    var groupe = new L.featureGroup(tableauMarqueurs);
+
+    carte.fitBounds(groupe.getBounds().pad(0.5));
+
+      carte.addLayer(marqueurs);
+    </script>
+
+    </body >
+    </html >

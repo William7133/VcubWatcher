@@ -1,4 +1,8 @@
 using System.Text.Json.Serialization;
+using System.Net.Http;
+using System.Net.Http.Headers;
+
+
 
 namespace VclubWatcher.Models
 {
@@ -10,7 +14,7 @@ namespace VclubWatcher.Models
     {
       this.bikeStation = bikeStation;
     }
-
+    private static readonly HttpClient client = new HttpClient();
     public int id { get; set; }
     public string name { get; set; }
     public int bike_count { get; set; }
